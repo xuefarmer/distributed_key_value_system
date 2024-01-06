@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package storage;
+
+service KeyValueStore {
+    rpc Put(Request) returns (Response);
+    rpc Get(Request) returns (Response);
+    rpc Delete(Request) returns (Response);
+    rpc Set(Request) returns (Response);
+    rpc SyncData(SyncRequest) returns (SyncResponse);
+}
+
+message Request {
+    string key = 1;
+    string value = 2;
+    string source_node = 3; // 新增的字段
+}
+
+message Response {
+    string value = 1;
+}
+
+message SyncRequest {
+    map<string, string> data = 1;
+    string source_node = 2;
+}
+
+message SyncResponse {
+    string message = 1;
+}
